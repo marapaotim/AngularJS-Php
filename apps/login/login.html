@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>Log in Form</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+ 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script> 
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script> 
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-cookies.min.js"></script>   
+<style type="text/css">
+.ng-touched.ng-invalid-required {
+    border-color: red;
+} 
+.ng-dirty.ng-invalid {
+  border-color: red;
+} 
+.ng-untouched.ng-invalid {
+    border-color: #ccc; 
+}
+.ng-submitted input.ng-invalid{
+    border-color: red;
+}   
+@media (min-width: 1200px) {
+    .container{
+        max-width: 600px;
+    }
+}
+</style>
+</head>
+<body>       
+<div class="container"> 
+	<br>
+  <div class="page-header">
+    <h1>Authentication Form</h1>      
+  </div> 
+<div class="panel panel-default">  
+  <div class="panel-body">  
+	<form name="loginFrm" role="form" novalidate="novalidate" id="frmStu"> 
+	  <div class="form-group">
+	    <label for="firstname">Username</label>
+	    <input type="text" name="username" class="form-control"  id="username" ng-model="username123" ng-required="true">
+	 	<!--<div ng-messages="loginFrm.username.$error" 
+	         ng-show='loginFrm.$submitted && loginFrm.username.$invalid'>
+	          <div ng-message="required" ng-hide="loginFrm.username.$valid" class="text-danger"><i>Username field required</i></div> 
+	    </div> -->
+	  </div>
+	  <div class="form-group">
+	    <label for="middlename">Password</label>
+	    <input type="password" class="form-control" id="password" name="password" ng-model="password123" ng-required="true">
+	    <!--<div ng-messages="loginFrm.password.$error" 
+	         ng-show='loginFrm.$submitted && loginFrm.password.$invalid'>
+	        <div ng-message="required" ng-hide="loginFrm.password.$valid" class="text-danger"><i>Password field required</i></div> 
+	    </div>-->
+	  </div>
+	  	<div id="errAlert"></div>
+ 		<input type="submit" class="btn btn-primary form-control" class="" value="Submit" ng-click="loginFrm.$valid && logUser()">
+ 		<br>
+ 		<br> 
+	  <div class="form-group"> 
+	    <div class="checkbox">
+  			<label><input type="checkbox" value="" id="remember">Remember Me?</label>
+		</div>
+	  </div>  
+ 	<a href="../signup/signup.html">Don't have an account yet? Sign up here</a> 
+	</form> 
+  </div>
+</div>
+</div>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
