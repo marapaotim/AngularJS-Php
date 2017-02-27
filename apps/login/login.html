@@ -11,9 +11,8 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script> 
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script> 
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-cookies.min.js"></script>   
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>  
+<script src="login.js"></script>    
 <style type="text/css">
 .ng-touched.ng-invalid-required {
     border-color: red;
@@ -34,18 +33,21 @@
 }
 </style>
 </head>
-<body>       
-<div class="container"> 
+<body ng-app="loginApp">       
+<div class="container" ng-controller="loginCtrl"> 
 	<br>
+	{{ 1+ 1}}
   <div class="page-header">
-    <h1>Authentication Form</h1>      
+    <h1>Authentication Form</h1>   
+    <div class="spinner" ng-show="loading"><img src="../../animals/reload.gif" width="50" height="50"> Please Wait. . .</div>
+    <div id="errorAlert"></div>   
   </div> 
 <div class="panel panel-default">  
   <div class="panel-body">  
 	<form name="loginFrm" role="form" novalidate="novalidate" id="frmStu"> 
 	  <div class="form-group">
 	    <label for="firstname">Username</label>
-	    <input type="text" name="username" class="form-control"  id="username" ng-model="username123" ng-required="true">
+	    <input type="text" name="username" class="form-control"  id="username">
 	 	<!--<div ng-messages="loginFrm.username.$error" 
 	         ng-show='loginFrm.$submitted && loginFrm.username.$invalid'>
 	          <div ng-message="required" ng-hide="loginFrm.username.$valid" class="text-danger"><i>Username field required</i></div> 
@@ -53,14 +55,14 @@
 	  </div>
 	  <div class="form-group">
 	    <label for="middlename">Password</label>
-	    <input type="password" class="form-control" id="password" name="password" ng-model="password123" ng-required="true">
+	    <input type="password" class="form-control" id="password" name="password">
 	    <!--<div ng-messages="loginFrm.password.$error" 
 	         ng-show='loginFrm.$submitted && loginFrm.password.$invalid'>
 	        <div ng-message="required" ng-hide="loginFrm.password.$valid" class="text-danger"><i>Password field required</i></div> 
 	    </div>-->
 	  </div>
 	  	<div id="errAlert"></div>
- 		<input type="submit" class="btn btn-primary form-control" class="" value="Submit" ng-click="loginFrm.$valid && logUser()">
+ 		<input type="submit" class="btn btn-primary form-control" class="" value="Submit" ng-click="logUser()">
  		<br>
  		<br> 
 	  <div class="form-group"> 
@@ -72,8 +74,6 @@
 	</form> 
   </div>
 </div>
-</div>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</div> 
 </body>
 </html>

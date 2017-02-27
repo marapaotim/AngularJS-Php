@@ -1,19 +1,19 @@
-<html>
+<html lang="en">
 <head>
 	<meta charset="utf-8"/>
 	<title>Sign Up Form</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Optional theme -->
+ 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript --> 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>  
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script> 
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-cookies.min.js"></script>
-    <script src="userController.js"></script>  
+ 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>  
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script> 
+<script src="signup.js"></script>   
 
 <style type="text/css">
 .ng-touched.ng-invalid-required {
@@ -29,78 +29,84 @@
 }
 .ng-submitted input.ng-invalid{
     border-color: red;
-}    
+}     
 @media (min-width: 1200px) {
     .container{
         max-width: 600px;
     }
-}
+} 
 </style>
 </head>
-<body>  
-<div class="container"> 
-<div class="page-header">
-   <h2>Registration Form</h2>      
+<body ng-app="signUpApp">  
+<div class="container" ng-controller="signUpCtrl"> 
+<div class="page-header"> 
+   <h2>Registration Form</h2>   
+	<div class="spinner" ng-show="loading"><img src="../../animals/reload.gif" width="50" height="50"> Please Wait. . .</div>
+	<div id="successAlert"></div>       
 </div> 
 <div class="panel panel-default"> 
   <div class="panel-body">  
 	<form name="signupFrm" role="form" novalidate="novalidate" id="frmSign"> 
 	  <div class="form-group">
 	    <label for="firstname">Full Name</label>
-	    <input type="text" name="ftname" class="form-control"  id="fname" ng-model="student.firstname" ng-required="true">
-	    <!-- <div ng-messages="signupFrm.ftname.$error" 
-	        ng-show='signupFrm.$submitted && signupFrm.ftname.$invalid'>
-	        <div ng-message="required" ng-hide="signupFrm.ftname.$valid" class="text-danger"><i>First Name field required</i></div>
-	    </div> -->
+	    <input type="text" name="ftname" ng-minlength="3" ng-maxlength="20" class="form-control"  id="fname" ng-model="user.fullname" ng-required="true">  
+			<div ng-messages="signupFrm.ftname.$dirty && signupFrm.ftname.$error" ng-show='signupFrm.ftname.$invalid'>
+	        	<div ng-message="required" ng-hide="signupFrm.ftname.$valid" class="text-danger"><i>Full name field required</i></div>
+	        	<div ng-message="minlength" ng-hide="signupFrm.ftname.$valid" class="text-danger"><i>Minimum Character is 3</i></div>
+	        	<div ng-message="maxlength" ng-hide="signupFrm.ftname.$valid" class="text-danger"><i>Maximum Character is 20</i></div>
+	    	</div> 
+	    	<!--<div ng-message="minlength" ng-hide="signupFrm.ftname.$valid" class="text-danger"><i>Minimum Error</i></div>-->
+			<!--<span ng-show="signupFrm.ftname.$error.required" ng-hide="signupFrm.ftname.$valid" class="help-inline">Required</span>
+            <span ng-show="signupFrm.ftname.$error.minlength" class="help-inline">Mobile number should be minimum 11 character starting from 07</span>-->    
 	  </div> 
 	   <div class="form-group">
 	    <label for="Age">Age</label>
-	    <input type="text" class="form-control" id="age" name="age" ng-model="student.age" ng-required="true">
-	    <!-- <div ng-messages="signupFrm.age.$error" 
-	        ng-show='signupFrm.$submitted && signupFrm.age.$invalid'>
+	    <input type="number" class="form-control" id="age" name="age" ng-model="user.age" ng-required="true">
+	    <div ng-messages="signupFrm.age.$dirty && signupFrm.age.$error" ng-show='signupFrm.age.$invalid'>
 	        <div ng-message="required" ng-hide="signupFrm.age.$valid" class="text-danger"><i>Age field required</i></div>
-	    </div> -->
+	    </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="gender">Gender</label> <br>
 	     <label class="radio-inline">
-      		<input type="radio" name="optradio" ng-required="true" ng-model="student.gender" Value="Male">Male
+      		<input type="radio" name="gender" Value="Male" ng-model="user.gender" value="Male" ng-required="!Gender">Male
     	</label>
 	    <label class="radio-inline">
-	      <input type="radio" name="optradio" ng-required="true" ng-model="student.gender" Value="Female">Female
+	      <input type="radio" name="gender" Value="Female" ng-model="user.gender" value="Female" ng-required="!Gender">Female
 	    </label>
-	    <!-- <div ng-messages="signupFrm.optradio.$error" 
-          ng-show='signupFrm.$submitted || signupFrm.optradio.$dirty' role="alert">
-          <div ng-message="required" ng-hide="signupFrm.optradio.$valid" class="text-danger"><i>Please select a gender</i></div>
-    	</div>  -->
+	    <div ng-messages="signupFrm.gender.$error" 
+          ng-show='signupFrm.$submitted || signupFrm.gender.$dirty' role="alert">
+          <div ng-message="required" ng-hide="signupFrm.gender.$valid" class="text-danger"><i>Please select a gender</i></div>
+    	</div> 
 	  </div>
 	  <div class="form-group">
 	    <label for="email">Email Address</label>
-	    <input type="email" class="form-control" id="emailAdd" name="emailAdd" ng-model="student.emailadd" ng-required="true">
-	    <!-- <div ng-messages="signupFrm.emailAdd.$error" 
-	        ng-show='signupFrm.$submitted && signupFrm.emailAdd.$invalid'>
-	        <div ng-message="required" ng-hide="signupFrm.emailAdd.$valid" class="text-danger"><i>Emaill Address field required</i></div>
-	    </div> -->
+	    <input type="email" class="form-control" id="emailAdd" name="emailAdd" ng-model="user.email" ng-required="true">
+	    <div ng-messages="signupFrm.emailAdd.$dirty && signupFrm.emailAdd.$error" ng-show='signupFrm.emailAdd.$invalid'>
+	        <div ng-message="required" ng-hide="signupFrm.emailAdd.$valid" class="text-danger"><i>Email Address is required</i></div>
+	        <div ng-message="email" ng-hide="signupFrm.emailAdd.$valid" class="text-danger"><i>This is not an Email Address</i></div>
+	    </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="username">Username</label>
-	    <input type="text" class="form-control" id="username" name="username" ng-model="student.username" ng-required="true">
-	    <!-- <div ng-messages="signupFrm.username.$error" 
-	        ng-show='signupFrm.$submitted && signupFrm.username.$invalid'>
+	    <input type="text" ng-minlength="6" ng-maxlength="20" class="form-control" id="username" name="username" ng-model="user.username" ng-required="true">
+	    <div ng-messages="signupFrm.username.$dirty && signupFrm.username.$error" ng-show='signupFrm.username.$invalid'>
 	        <div ng-message="required" ng-hide="signupFrm.username.$valid" class="text-danger"><i>Username field required</i></div>
-	    </div> -->
+	    	<div ng-message="minlength" ng-hide="signupFrm.username.$valid" class="text-danger"><i>Minimum Character is 6</i></div>
+	        <div ng-message="maxlength" ng-hide="signupFrm.username.$valid" class="text-danger"><i>Maximum Character is 20</i></div>
+	    </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="password">Password</label>
-	    <input type="password" class="form-control" id="password" name="password" ng-model="student.password" ng-required="true">
-	    <!-- <div ng-messages="signupFrm.password.$error" 
-	        ng-show='signupFrm.$submitted && signupFrm.password.$invalid'>
+	    <input type="password" ng-minlength="6" ng-maxlength="20" class="form-control" id="password" name="password" ng-model="user.password" ng-required="true">
+	    <div ng-messages="signupFrm.password.$dirty && signupFrm.password.$error" ng-show='signupFrm.password.$invalid'>
 	        <div ng-message="required" ng-hide="signupFrm.password.$valid" class="text-danger"><i>Password field required</i></div>
-	    </div> -->
+	    	<div ng-message="minlength" ng-hide="signupFrm.password.$valid" class="text-danger"><i>Minimum Character is 6</i></div>
+	        <div ng-message="maxlength" ng-hide="signupFrm.password.$valid" class="text-danger"><i>Maximum Character is 20</i></div>
+	    </div>
 	  </div>
-	  <div id="successAlert"></div>
-
- 		<input type="submit" class="btn btn-primary form-control" class="" value="Submit" ng-click="signupFrm.$valid && insertUser()">
+	 <!-- <div class="spinner" ng-show="loading"></div>--> 
+ 		<input type="submit" class="btn btn-primary form-control" class="" value="Submit" ng-click="signupFrm.$valid && submitUser()">
  		<br>
  		<br>   
  	<a href="../login/login.html">Already have an Account? Sign In here.</a> 
