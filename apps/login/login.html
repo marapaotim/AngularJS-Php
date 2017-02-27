@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en" ng-app="loginApp">
 <head>
 	<meta charset="utf-8"/>
 	<title>Log in Form</title>
@@ -12,7 +12,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>  
-<script src="login.js"></script>    
+<script src="angular-route.min.js"></script>   
+<script src="login.js"></script>   
 <style type="text/css">
 .ng-touched.ng-invalid-required {
     border-color: red;
@@ -33,10 +34,16 @@
 }
 </style>
 </head>
-<body ng-app="loginApp">       
-<div class="container" ng-controller="loginCtrl"> 
+<body ng-controller="loginController">       
+<div class="container"> 
+
+<!-- 	<a href="#/home">Home</a>
+	<a href="#/courses">Courses</a>
+	<a href="#/students">Students</a> -->
+
+<!-- 	<ng-view></ng-view> -->
 	<br>
-	{{ 1+ 1}}
+	{{ 1 + 1 }}
   <div class="page-header">
     <h1>Authentication Form</h1>   
     <div class="spinner" ng-show="loading"><img src="../../animals/reload.gif" width="50" height="50"> Please Wait. . .</div>

@@ -1,4 +1,4 @@
-<html>
+<html ng-app="indexApp">
 <head>
 	<meta charset="utf-8"/>
 	<title>Animal List</title><!-- Latest compiled and minified CSS -->
@@ -11,6 +11,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script> 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script> 
+<script type="text/javascript" src="index.js"></script>
 <style type="text/css"> 
 body {
 	color:white; 
@@ -45,7 +46,7 @@ body {
 
 </style>
 </head>
-<body>
+<body ng-controller="indexController">
 <div id="bg-image">
 <nav class="navbar navbar-inverse navbar-static-top">
   <div class="container-fluid">
@@ -71,11 +72,9 @@ body {
         <li id="log"><a href="apps/login/login.html">Log In</a></li>
         <li id="sign"><a href="apps/signup/signup.html">Sign Up</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>{{ Firstname }}</b> <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome: <b>{{ nameUser }}</b> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Log Out</a></li>
-            <li><a href="#">Log Out</a></li>
-            <li><a href="#">Log Out</a></li>
+            <li><a href="#">Log Out</a></li> 
           </ul>
         </li>
       </ul>

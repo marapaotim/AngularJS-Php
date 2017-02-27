@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("db.php");
 $Database;
 $conn;
@@ -25,7 +26,7 @@ if(isset($_REQUEST['type']) && !empty($_REQUEST['type'])){
 	 		$data = $logUser->logIn($arrayUser);
 	 		echo json_encode($data);
 	 	break; 
-	 	case "session_name":
+	 	case "session":
 	 		echo json_encode($_SESSION['name']);
 	 	break;
 	 }
@@ -68,8 +69,7 @@ VALUES
        $query->execute();
 	}
 
-	public function logIn($dataUser){   
-		session_start();
+	public function logIn($dataUser){    
 		$this->Database = new DB(); 
 		$this->conn = $this->Database->dBase();
 		$sql = "SELECT * FROM `angular`.`user` where BINARY `user`.`username` = :username and `user`.`password` = :password"; 
@@ -77,8 +77,25 @@ VALUES
         $query->bindParam(':username', $dataUser[0]);
         $query->bindParam(':password', $dataUser[1]); 
         $query->execute();  
-        $_SESSION['name'] = $query->fetchAll(PDO::FETCH_COLUMN, 1);
-        return $query->fetchAll(PDO::FETCH_COLUMN, 7);//$query->fetchAll(PDO::FETCH_ASSOC);//
+        $status = '';
+        if($query->rowCount() > 0){ 
+        	$rows = $query->fetchAll();
+        	foreach ($rows as $data) {
+        		$status = $data["status"];
+        		if($status == "on"){
+        			$_SESSION['name'] = $data["name"];
+        			return "on";
+        		}
+        		else{
+        			$_SESSION['name'] = null;
+        			return "off";
+        		}
+        	}
+        }
+        else{
+        	$_SESSION['name'] = null;
+        	return "unknown";
+        } 
 	}
 }
 
