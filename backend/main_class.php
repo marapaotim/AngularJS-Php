@@ -27,7 +27,18 @@ if(isset($_REQUEST['type']) && !empty($_REQUEST['type'])){
 	 		echo json_encode($data);
 	 	break; 
 	 	case "session":
-	 		echo json_encode($_SESSION['name']);
+	 		$data = ''; 
+	 		if(isset($_SESSION['name'])){
+	 			$data = $_SESSION['name'];
+	 		}
+	 		else{
+	 			$data = 'false'; 
+	 		} 
+	 		echo json_encode($data);
+	 	break;
+	 	case "session_logout":
+	 		session_destroy();
+	 		echo json_encode("log Out");
 	 	break;
 	 }
 }

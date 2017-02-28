@@ -1,5 +1,26 @@
 var app = angular.module('loginApp', []); 
 app.controller('loginController', function($scope, $http) {
+  sessions(); 
+
+  function sessions(){
+    $scope.session = {
+    'type':'session'
+  }  
+  var request = $http({ 
+       method: "POST",
+       url: "../../backend/main_class.php", 
+       data: $.param($scope.session),
+       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    });  
+
+    request.success(function (data){   
+      $scope.nameUser = data.replace(/"/g, "");  
+      if($scope.nameUser != "false"){    
+       window.location.replace('../../index.html'); 
+      } 
+    }); 
+  } 
+
   $scope.logUser = function(){
     $scope.loading = true;
     $scope.users = {
@@ -33,7 +54,7 @@ app.controller('loginController', function($scope, $http) {
         $('#errorAlert').html('<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">×</a><strong>Error!</strong> '+ msg +'</div>');
       }
     }); 
-  }
+  } 
 }) 
 
   // $scope.logUser = function(){
